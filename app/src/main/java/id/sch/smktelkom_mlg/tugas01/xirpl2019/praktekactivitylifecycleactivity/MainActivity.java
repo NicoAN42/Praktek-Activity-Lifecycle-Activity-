@@ -1,5 +1,6 @@
 package id.sch.smktelkom_mlg.tugas01.xirpl2019.praktekactivitylifecycleactivity;
 
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,11 +8,12 @@ import android.util.Log;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "LivecycleTag";
-
+    MediaPlayer mediaPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mediaPlayer = MediaPlayer.create(this, R.raw.song);
         Log.d(TAG, "onCreate: ");
 
     }
@@ -24,12 +26,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume()
     {
+        mediaPlayer.start();
         super.onResume();
         Log.d(TAG, "onResume");
     }
     @Override
     protected void onPause()
     {
+        mediaPlayer.pause();
         super.onPause();
         Log.d(TAG, "onPause");
     }
@@ -48,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy()
     {
+        if(mediaPlayer != null)
+            mediaPlayer.release();
         super.onDestroy();
         Log.d(TAG, "onDestroy");
     }
